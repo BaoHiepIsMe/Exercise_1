@@ -122,18 +122,15 @@ class _LoginPage extends State<LoginPage> {
                   ),
 
                   
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 56,
-                      child: ElevatedButton(     
-                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                       ),
-                        onPressed: onSignInClick,
-                  child: Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 16)),
-                      ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: ElevatedButton(     
+                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                     ),
+                      onPressed: onSignInClick,
+                                    child: Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 16)),
                     ),
                   ) ,
                    SizedBox(
@@ -183,9 +180,9 @@ class _LoginPage extends State<LoginPage> {
   Widget gotoHome(BuildContext){
     return Detail();
   }
-  Widget gotoSignUp(BuildContext){
-    return Signup();
-  }
+    Widget gotoSignUp(BuildContext){
+      return Signup();
+    }
   void gotoLogin(){
 Navigator.push(context,MaterialPageRoute(builder:gotoSignUp));
   }
