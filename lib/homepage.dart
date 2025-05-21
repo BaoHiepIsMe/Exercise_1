@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'detail.dart';
 
 void main(){
   runApp(const Homepage());
@@ -168,7 +169,11 @@ class _HomepageState extends State<Homepage> {
                     ),
                     SizedBox(width: 10,),
                     //Quả táo
-                    Container(
+                    GestureDetector(
+                      onTap: () {
+                    Detail();
+                  },
+                  child:Container(
                       height: 250,
                       width: 170,
                       decoration: BoxDecoration(
@@ -185,7 +190,7 @@ class _HomepageState extends State<Homepage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                          crossAxisAlignment: CrossAxisAlignment.start,
                            children: <Widget>[
-                                             Container(
+                           Container(
                             alignment: Alignment.center,
                             height: 100,
                             width: double.infinity,
@@ -229,6 +234,7 @@ class _HomepageState extends State<Homepage> {
                         ),
                       )
                     ),
+                ),
                     SizedBox(width:10),
                     //Quả còn lại
                     Container(
