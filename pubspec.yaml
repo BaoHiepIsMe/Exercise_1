@@ -53,6 +53,26 @@ dev_dependencies:
 flutter:
   assets:
     - image/hinh-anh-qua-tao.png
+    - image/R.png
+    - image/banner1.jpg
+    - image/banner2.jpg
+    - image/banner3.jpg
+    - image/chuoi.png
+    - image/tao.png
+    - image/nho.png
+    - image/otchuong.png
+    - image/OIP.jpg
+    - image/dau.png
+    - image/rice.jpg
+    - image/thitbo.png
+    - image/ga-nguyen-con-nhap-khau.png
+    - image/rau.png
+    - image/dau1.png
+    - image/ca.png
+    - image/banhmy.png
+    - image/sua.png
+    - image/nuocngot.png
+  
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

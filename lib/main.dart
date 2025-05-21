@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login/detail.dart';
 import 'package:login/signup.dart';
+import 'package:login/menu.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,10 +34,18 @@ class _LoginPage extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-          constraints: BoxConstraints.expand(),
-          color: Colors.white,
+          body: Container(
+            // decoration: BoxDecoration(
+            //   color: Colors.white,
+            //     image: DecorationImage(
+                  
+            //       image: AssetImage('image/hinh-anh-qua-tao.png'), // <-- đường dẫn ảnh
+            //       fit: BoxFit.cover, // Phủ toàn bộ màn hình
+            //     ),
+            //   ),
+            padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+            constraints: BoxConstraints.expand(),
+            color: Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,15 +55,14 @@ class _LoginPage extends State<LoginPage> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
                   child: Container(
-                    width: 70,
-                    height: 70,
+                    width: 150,
+                    height: 150,
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0xffd8d8d8),
+                      //color: Color(0xffd8d8d8),
                     ),
-                    child: FlutterLogo(
-                    )
+                    child: Image.asset("image/R.png",),
                     ),
                 ),
               ),
@@ -130,7 +138,7 @@ class _LoginPage extends State<LoginPage> {
                       backgroundColor: Colors.green,
                      ),
                       onPressed: onSignInClick,
-                                    child: Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 16)),
+                       child: Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 16)),
                     ),
                   ) ,
                    SizedBox(
@@ -177,13 +185,13 @@ class _LoginPage extends State<LoginPage> {
       }
     });
   }
-  Widget gotoHome(BuildContext){
-    return Detail();
-  }
+    Widget gotoHome(BuildContext){
+      return TabBarDemo();
+    }
     Widget gotoSignUp(BuildContext){
       return Signup();
     }
-  void gotoLogin(){
-Navigator.push(context,MaterialPageRoute(builder:gotoSignUp));
-  }
+    void gotoLogin(){
+      Navigator.push(context,MaterialPageRoute(builder:gotoSignUp));
+    }
 }  

@@ -28,20 +28,19 @@ class _SignupState extends State<Signup> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
+               Container(
                 alignment: Alignment.center,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
                   child: Container(
-                    width: 70,
-                    height: 70,
+                    width: 150,
+                    height: 150,
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0xffd8d8d8),
+                      //color: Color(0xffd8d8d8),
                     ),
-                    child: FlutterLogo(
-                    )
+                    child: Image.asset("image/R.png",),
                     ),
                 ),
               ),
@@ -115,26 +114,26 @@ class _SignupState extends State<Signup> {
                     
                   ),
                   Container(
-  margin: EdgeInsets.fromLTRB(20, 15, 20, 30),
-  child: RichText(
-    textAlign: TextAlign.center,
-    text: TextSpan(
-      style: TextStyle(color: Colors.grey, fontSize: 14),
-      children: [
-        TextSpan(text: "By continuing you agree to our "),
-        TextSpan(
-          text: "Terms of Service",
-          style: TextStyle(color: Colors.green),
-        ),
-        TextSpan(text: " and "),
-        TextSpan(
-          text: "Privacy Policy.",
-          style: TextStyle(color: Colors.green),
-        ),
-      ],
-    ),
-  ),
-),
+                  margin: EdgeInsets.fromLTRB(20, 15, 20, 30),
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                      children: [
+                        TextSpan(text: "By continuing you agree to our "),
+                        TextSpan(
+                          text: "Terms of Service",
+                          style: TextStyle(color: Colors.green),
+                        ),
+                        TextSpan(text: " and "),
+                        TextSpan(
+                          text: "Privacy Policy.",
+                          style: TextStyle(color: Colors.green),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
 
 
                   
