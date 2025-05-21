@@ -171,7 +171,10 @@ class _HomepageState extends State<Homepage> {
                     //Quả táo
                     GestureDetector(
                       onTap: () {
-                    Detail();
+                     Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Detail()),
+                      );
                   },
                   child:Container(
                       height: 250,
