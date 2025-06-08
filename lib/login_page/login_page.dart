@@ -1,9 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:login/cubits/cubit/login_cubit_cubit.dart';
+import 'package:login/homepage/homepage.dart';
+import 'package:login/homepage/homepage_cubit.dart';
+import 'package:login/login_page/login_cubit_cubit.dart';
+import 'package:login/loading/loadingscreen.dart';
 import 'package:login/menu.dart';
-import 'package:login/signup.dart';
+import 'package:login/signup_page/signup.dart';
+import 'package:login/signup_page/signup_cubit.dart';
 
 class LoginPage extends StatefulWidget {
  //const MyWidget({super.key});
@@ -23,18 +27,21 @@ class _LoginPage extends State<LoginPage> {
           body:BlocConsumer<LoginCubit,LoginState>( 
                listener: (context, state) {
           if (state.isLoginSuccess) {
-            Navigator.pushReplacement(
+             //  final homeCubit = HomeCubit()..loadProducts(); // tạo và gọi load 1 lần
+             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (_) => TabBarDemo()),
             );
-          }
+          };
+          
         },
        builder: (context, state) {
+   
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             constraints: const BoxConstraints.expand(),
             color: Colors.white,
-            child: SingleChildScrollView( // Để tránh tràn màn hình nhỏ
+            child: SingleChildScrollView( 
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,7 +130,15 @@ class _LoginPage extends State<LoginPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                       ),
-                      onPressed: onSignInClick,
+                       onPressed: _userController.text.isNotEmpty &&
+                                  _passController.text.isNotEmpty &&
+                                  state.passwordError.isEmpty && state.emailError.isEmpty
+                            ? () {
+                           final username = _userController.text;
+                          final password = _passController.text;
+                          context.read<LoginCubit>().login(username, password);
+                              }
+                            : null,
                       child: const Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 16)),
                     ),
                   ),
@@ -136,7 +151,16 @@ class _LoginPage extends State<LoginPage> {
                         style: TextStyle(fontSize: 15, color: Colors.black),
                       ),
                       TextButton(
-                        onPressed: null,
+                        onPressed: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BlocProvider(
+                            create: (_) => SignupCubit(),
+                              child: Signup(),
+                              ),
+                            ),
+                          );
+                            },
                         child: const Text(
                           "Sign up",
                           style: TextStyle(color: Colors.green),
@@ -157,19 +181,6 @@ class _LoginPage extends State<LoginPage> {
     setState(() {
       _showPW = !_showPW;
     });
+
   }
-  void onSignInClick(){
-    setState(() {
-     
-    });
-  }
-    Widget gotoHome(BuildContext){
-      return TabBarDemo();
-    }
-    Widget gotoSignUp(BuildContext){
-      return Signup();
-    }
-    void gotoLogin(){
-      Navigator.push(context,MaterialPageRoute(builder:gotoSignUp));
-    }
 }  

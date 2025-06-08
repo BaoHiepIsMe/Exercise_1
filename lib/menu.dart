@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import "homepage.dart";
-import "category.dart";
-import "account.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:login/account_page/account_cubit.dart";
+import "package:login/category_page/category_cubit.dart";
+import "package:login/homepage/homepage_cubit.dart";
+import "homepage/homepage.dart";
+import "category_page/category.dart";
+import "account_page/account.dart";
 
 List<String> titles = <String>[
   'Shop',
@@ -20,18 +24,29 @@ class TabBarDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HomeCubit>(
+          create: (_) => HomeCubit()..loadProducts(),
+        ),
+        BlocProvider<CategoryCubit>(
+          create: (_) => CategoryCubit()..loadDetailCategory(),
+        ),
+        BlocProvider<UserCubit>(
+          create: (_) => UserCubit()..loadUser()),
+    ], 
+    child: MaterialApp(
       theme: ThemeData(colorSchemeSeed: Colors.green),
       home: DefaultTabController(
         length: 5,
         child: Scaffold(
-          body: const TabBarView(
+          body: TabBarView(
             children: [
-              Homepage(),
-              Category(),
-              Center(child: Text('Cart')),
-              Center(child: Text('Favorite')),
-              ProfileScreen(),
+              const Homepage(),      
+              const Category(),
+              const Center(child: Text('Cart')),
+              const Center(child: Text('Favorite')),
+              const ProfileScreen(),
             ],
           ),
           bottomNavigationBar: Material(
@@ -43,11 +58,12 @@ class TabBarDemo extends StatelessWidget {
                 _buildTab(Icons.shopping_cart_outlined, titles[2]),
                 _buildTab(Icons.favorite_border, titles[3]),
                 _buildTab(Icons.person_outline_sharp, titles[4]),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-      ),
+      )
     );
   }
 

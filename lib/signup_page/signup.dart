@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:login/main.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:login/loading/loadingscreen.dart';
+import 'package:login/login_page/login_cubit_cubit.dart';
+import 'package:login/login_page/login_page.dart';
+import 'package:login/signup_page/signup_cubit.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -10,17 +14,25 @@ class _SignupState extends State<Signup> {
     TextEditingController _nameController = new TextEditingController();
     TextEditingController _userController = new TextEditingController();
     TextEditingController _passController = new TextEditingController();
-  var _userNameError = "Tai khoan khong hop le";
-  var _passError     = "Mat khau phai tren 6 ki tu";
-  var _nameError     = "Ten khong hop le";
-  var _userInvalid = false;
-  var _passInvalid = false;
-  var _nameInvalid = false;
   @override
   Widget build(BuildContext context) {
    
 
-    return Scaffold(  body: Container(
+    return Scaffold(  
+      body: BlocConsumer<SignupCubit,SignUpState>(
+        listener: (context, state) {
+          if (state.isLoginSuccess) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => LoginPage()),
+            );
+          };
+        },
+        builder: (context, state) {
+          if(state.isLoading){
+            return LoadingScreen();
+          }
+          return Container(
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
           constraints: BoxConstraints.expand(),
           color: Colors.white,
@@ -69,7 +81,7 @@ class _SignupState extends State<Signup> {
                     style: TextStyle(fontSize: 18, color: Colors.black),
                     decoration: InputDecoration(
                       labelText: "UserName",
-                      errorText: _nameInvalid ? _nameError : null,
+                      errorText: state.usernameError.isEmpty ? null : state.usernameError,
                       labelStyle: TextStyle(color: Color(0xff888888),fontSize: 20)
                     ),
                   ),
@@ -81,7 +93,7 @@ class _SignupState extends State<Signup> {
                     style: TextStyle(fontSize: 18, color: Colors.black),
                     decoration: InputDecoration(
                       labelText: "Email",
-                      errorText: _userInvalid ? _userNameError : null,
+                      errorText:state.emailError.isEmpty ? null : state.emailError,
                       labelStyle: TextStyle(color: Color(0xff888888),fontSize: 20)
                     ),
                   ),
@@ -96,7 +108,7 @@ class _SignupState extends State<Signup> {
                         style: TextStyle(fontSize: 18, color: Colors.black),
                         obscureText: !_showPW,
                         decoration: InputDecoration(
-                          errorText: _passInvalid ? _passError : null ,
+                          errorText: state.passwordError.isEmpty ? null : state.passwordError ,
                           labelText: "Password",
                           labelStyle: TextStyle(color: Color(0xff888888),fontSize: 20)
                         ),
@@ -146,7 +158,18 @@ class _SignupState extends State<Signup> {
                        style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                        ),
-                        onPressed: onSignInClick,
+                        onPressed: state.passwordError.isEmpty 
+                                  && state.emailError.isEmpty 
+                                  && state.usernameError.isEmpty
+                                  && _nameController.text.isNotEmpty
+                                  && _userController.text.isNotEmpty
+                                  && _passController.text.isNotEmpty
+                            ? () {
+                          final username = _userController.text;
+                          final password = _passController.text;
+                          final email = _nameController.text;
+                          context.read<SignupCubit>().signup(username,email, password);
+                              } : null,
                   child: Text("Sign Up", style: TextStyle(color: Colors.white, fontSize: 16)),
                       ),
                     ),
@@ -161,49 +184,30 @@ class _SignupState extends State<Signup> {
                           style: TextStyle(fontSize: 15,color: Colors.black,
                            ),
                           ),
-                          TextButton(onPressed: onLogInClick,
-                           child: Text("SignIn",
+                          TextButton(onPressed: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: 
+                              (context)=>BlocProvider(create: (_)=>LoginCubit(),
+                              child: LoginPage(),))
+                            );
+                          },
+                           child: Text("Sign In",
                            style: TextStyle(color: Colors.green),))
                         ],
                       ),
                     ),
             ],
           ),
-        ),
+        );
+        },
+      ),
       );
   }
    void onToggleShowPass(){
     setState(() {
       _showPW = !_showPW;
     });
-  }
-  void onSignInClick(){
-    setState(() {
-      if(_nameController.text.length<6){
-       _nameInvalid = true;
-      }else{
-        _nameInvalid = false;
-      }
-      if(_userController.text.length < 6 || !_userController.text.contains("@")){
-        _userInvalid = true;
-      }else {
-        _userInvalid = false;
-      }
-      if(_passController.text.length < 6){
-        _passInvalid = true;
-      } else{
-        _passInvalid = false;
-      }
-      if(!_userInvalid&&!_passInvalid&&!_nameInvalid){
-Navigator.popUntil(context, (route) => route.isFirst);
-       // Navigator.push(context, MaterialPageRoute(builder: (context)=>gotoHome()));
-      }
-    });
-  }
-
-  void onLogInClick(){
-Navigator.popUntil(context, (route) => route.isFirst);
-  }
-  
+  }  
  
 }
