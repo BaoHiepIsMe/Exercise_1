@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:login/account_page/account_cubit.dart";
+import "package:login/cart_page/cart.dart";
+import "package:login/cart_page/cart_cubit.dart";
 import "package:login/category_page/category_cubit.dart";
 import "package:login/homepage/homepage_cubit.dart";
 import "homepage/homepage.dart";
@@ -34,6 +36,8 @@ class TabBarDemo extends StatelessWidget {
         ),
         BlocProvider<UserCubit>(
           create: (_) => UserCubit()..loadUser()),
+        BlocProvider<CartCubit>(
+          create: (_) => CartCubit()),
     ], 
     child: MaterialApp(
       theme: ThemeData(colorSchemeSeed: Colors.green),
@@ -44,7 +48,7 @@ class TabBarDemo extends StatelessWidget {
             children: [
               const Homepage(),      
               const Category(),
-              const Center(child: Text('Cart')),
+              const Cart(),
               const Center(child: Text('Favorite')),
               const ProfileScreen(),
             ],
