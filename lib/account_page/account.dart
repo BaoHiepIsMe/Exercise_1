@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login/account_page/account_cubit.dart';
 import 'package:login/account_page/account_state.dart';
 import 'package:login/loading/loadingscreen.dart';
-import 'package:login/login_page/login_cubit_cubit.dart';
+import 'package:login/login_page/login_cubit.dart';
 import 'package:login/login_page/login_page.dart';
 
 class ProfileScreen extends StatelessWidget {

@@ -5,14 +5,14 @@ class SignUpState {
   final String emailError;
   final String passwordError;
   final bool isLoading;
-  final bool isLoginSuccess;
+  final bool isSignupSuccess;
 
   const SignUpState({
     this.usernameError='',
     this.emailError = '',
     this.passwordError = '',
     this.isLoading = false,
-    this.isLoginSuccess = false,
+    this.isSignupSuccess = false,
   });
 
   SignUpState copyWith({
@@ -20,14 +20,14 @@ class SignUpState {
     String? emailError,
     String? passwordError,
     bool? isLoading,
-    bool? isLoginSuccess,
+    bool? isSignupSuccess,
   }) {
     return SignUpState(
       usernameError: usernameError ?? this.usernameError,
       emailError: emailError ?? this.emailError,
       passwordError: passwordError ?? this.passwordError,
       isLoading: isLoading ?? this.isLoading,
-      isLoginSuccess: isLoginSuccess ?? this.isLoginSuccess,
+      isSignupSuccess: isSignupSuccess ?? this.isSignupSuccess,
     );
   }
 }

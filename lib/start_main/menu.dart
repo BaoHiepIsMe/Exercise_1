@@ -5,9 +5,9 @@ import "package:login/cart_page/cart.dart";
 import "package:login/cart_page/cart_cubit.dart";
 import "package:login/category_page/category_cubit.dart";
 import "package:login/homepage/homepage_cubit.dart";
-import "homepage/homepage.dart";
-import "category_page/category.dart";
-import "account_page/account.dart";
+import "../homepage/homepage.dart";
+import "../category_page/category.dart";
+import "../account_page/account.dart";
 
 List<String> titles = <String>[
   'Shop',

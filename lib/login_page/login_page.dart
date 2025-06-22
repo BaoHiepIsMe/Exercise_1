@@ -1,10 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:login/login_page/login_cubit_cubit.dart';
-import 'package:login/menu.dart';
-import 'package:login/signup_page/signup.dart';
-import 'package:login/signup_page/signup_cubit.dart';
+import 'package:login/login_page/login_cubit.dart';
+import 'package:login/start_main/menu.dart';
+
 
 class LoginPage extends StatefulWidget {
  //const MyWidget({super.key});
@@ -24,7 +23,6 @@ class _LoginPage extends State<LoginPage> {
           body:BlocConsumer<LoginCubit,LoginState>( 
                listener: (context, state) {
           if (state.isLoginSuccess) {
-             //  final homeCubit = HomeCubit()..loadProducts(); // tạo và gọi load 1 lần
              Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (_) => TabBarDemo()),
@@ -149,14 +147,7 @@ class _LoginPage extends State<LoginPage> {
                       ),
                       TextButton(
                         onPressed: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => BlocProvider(
-                            create: (_) => SignupCubit(),
-                              child: Signup(),
-                              ),
-                            ),
-                          );
+                          Navigator.pushReplacementNamed(context, '/signup');
                             },
                         child: const Text(
                           "Sign up",

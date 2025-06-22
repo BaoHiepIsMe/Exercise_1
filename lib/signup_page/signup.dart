@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login/loading/loadingscreen.dart';
-import 'package:login/login_page/login_cubit_cubit.dart';
-import 'package:login/login_page/login_page.dart';
 import 'package:login/signup_page/signup_cubit.dart';
 
 class Signup extends StatefulWidget {
@@ -11,9 +9,11 @@ class Signup extends StatefulWidget {
 }
 class _SignupState extends State<Signup> {
     bool _showPW = false;
-    TextEditingController _nameController = new TextEditingController();
-    TextEditingController _userController = new TextEditingController();
+    TextEditingController _usernameController = new TextEditingController();
+    TextEditingController _emailController = new TextEditingController();
     TextEditingController _passController = new TextEditingController();
+    TextEditingController _firstNameController = new TextEditingController();
+    TextEditingController _lastNameController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
    
@@ -21,20 +21,19 @@ class _SignupState extends State<Signup> {
     return Scaffold(  
       body: BlocConsumer<SignupCubit,SignUpState>(
         listener: (context, state) {
-          if (state.isLoginSuccess) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (_) => LoginPage()),
-            );
+          if (state.isSignupSuccess) {
+            Navigator.pushReplacementNamed(context, '/login');
+
           };
         },
         builder: (context, state) {
           if(state.isLoading){
             return LoadingScreen();
           }
-          return Container(
+          return SingleChildScrollView(
+            child: Container(
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-          constraints: BoxConstraints.expand(),
+          width: double.infinity,
           color: Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -42,19 +41,16 @@ class _SignupState extends State<Signup> {
             children: <Widget>[
                Container(
                 alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
-                  child: Container(
-                    width: 150,
-                    height: 150,
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      //color: Color(0xffd8d8d8),
-                    ),
-                    child: Image.asset("image/R.png",),
-                    ),
-                ),
+                child: Container(
+                  width: 150,
+                  height: 150,
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    //color: Color(0xffd8d8d8),
+                  ),
+                  child: Image.asset("image/R.png",),
+                  ),
               ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0,0,0,10),
@@ -66,7 +62,7 @@ class _SignupState extends State<Signup> {
                   ),),
                 ),
                 Padding(
-                 padding: const EdgeInsets.fromLTRB(0,0,0,60),
+                 padding: const EdgeInsets.fromLTRB(0,0,0,10),
                   child: Text("Enter your credential to contunie",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -77,25 +73,73 @@ class _SignupState extends State<Signup> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                   child: TextField(
-                    controller: _nameController,
+                    controller: _usernameController,
                     style: TextStyle(fontSize: 18, color: Colors.black),
                     decoration: InputDecoration(
                       labelText: "UserName",
                       errorText: state.usernameError.isEmpty ? null : state.usernameError,
                       labelStyle: TextStyle(color: Color(0xff888888),fontSize: 20)
                     ),
+                     onChanged: (value){
+                    context.read<SignupCubit>().onchangeUsername(value); 
+                    },
                   ),
                 ),
                  Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 10),
+                          child: TextField(
+                            controller: _firstNameController,
+                            style: TextStyle(fontSize: 18, color: Colors.black),
+                            decoration: InputDecoration(
+                              labelText: "First Name",
+                              errorText: state.usernameError.isEmpty ? null : state.usernameError,
+                              labelStyle: TextStyle(color: Color(0xff888888), fontSize: 20),
+                            ),
+                            onChanged: (value) {
+                              context.read<SignupCubit>().onchangeUsername(value);
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: TextField(
+                            controller: _lastNameController,
+                            style: TextStyle(fontSize: 18, color: Colors.black),
+                            decoration: InputDecoration(
+                              labelText: "Last Name",
+                              errorText: state.usernameError.isEmpty ? null : state.usernameError,
+                              labelStyle: TextStyle(color: Color(0xff888888), fontSize: 20),
+                            ),
+                            onChanged: (value) {
+                              context.read<SignupCubit>().onchangeUsername(value);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+
+                ),
+                 Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                   child: TextField(
-                    controller: _userController,
+                    controller: _emailController,
                     style: TextStyle(fontSize: 18, color: Colors.black),
                     decoration: InputDecoration(
                       labelText: "Email",
                       errorText:state.emailError.isEmpty ? null : state.emailError,
                       labelStyle: TextStyle(color: Color(0xff888888),fontSize: 20)
                     ),
+                     onChanged: (value){
+                    context.read<SignupCubit>().onchangeEmmail(value); 
+                    },
                   ),
                 ),
                   Padding(
@@ -112,6 +156,9 @@ class _SignupState extends State<Signup> {
                           labelText: "Password",
                           labelStyle: TextStyle(color: Color(0xff888888),fontSize: 20)
                         ),
+                         onChanged: (value){
+                          context.read<SignupCubit>().onchangePassword(value); 
+                          },
                       ),
                       
                     GestureDetector(
@@ -161,14 +208,18 @@ class _SignupState extends State<Signup> {
                         onPressed: state.passwordError.isEmpty 
                                   && state.emailError.isEmpty 
                                   && state.usernameError.isEmpty
-                                  && _nameController.text.isNotEmpty
-                                  && _userController.text.isNotEmpty
+                                  && _usernameController.text.isNotEmpty
+                                  && _emailController.text.isNotEmpty
                                   && _passController.text.isNotEmpty
+                                  && _lastNameController.text.isNotEmpty
+                                  && _firstNameController.text.isNotEmpty
                             ? () {
-                          final username = _userController.text;
-                          final password = _passController.text;
-                          final email = _nameController.text;
-                          context.read<SignupCubit>().signup(username,email, password);
+                          final username = _usernameController.text.trim();
+                          final email = _emailController.text.trim();
+                          final password = _passController.text.trim();
+                          final firstName = _firstNameController.text.trim();
+                          final lastName = _lastNameController.text.trim();
+                          context.read<SignupCubit>().signup(username,firstName,lastName,email, password);
                               } : null,
                   child: Text("Sign Up", style: TextStyle(color: Colors.white, fontSize: 16)),
                       ),
@@ -185,12 +236,8 @@ class _SignupState extends State<Signup> {
                            ),
                           ),
                           TextButton(onPressed: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: 
-                              (context)=>BlocProvider(create: (_)=>LoginCubit(),
-                              child: LoginPage(),))
-                            );
+                            Navigator.pushReplacementNamed(context, '/login');
+
                           },
                            child: Text("Sign In",
                            style: TextStyle(color: Colors.green),))
@@ -199,7 +246,8 @@ class _SignupState extends State<Signup> {
                     ),
             ],
           ),
-        );
+        ),
+          );
         },
       ),
       );
