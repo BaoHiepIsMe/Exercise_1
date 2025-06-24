@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'homepage_state.dart';
-import 'product.dart';
+import '../model/product.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeState(isLoading: true,exclusiveProducts: [], bestSellingProducts: [],productAll: []));

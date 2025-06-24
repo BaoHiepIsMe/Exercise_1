@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:login/category_page/category_cubit.dart';
-import 'package:login/category_page/category_state.dart';
+import 'package:login/category_page/cubit/category_cubit.dart';
+import 'package:login/category_page/cubit/category_state.dart';
 import 'package:login/loading/loadingOverlay.dart';
 import 'package:login/loading/loadingscreen.dart';
 

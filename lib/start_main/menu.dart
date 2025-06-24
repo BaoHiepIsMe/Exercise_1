@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
-import "package:login/account_page/account_cubit.dart";
+import "package:login/account_page/cubit/account_cubit.dart";
 import "package:login/cart_page/cart.dart";
-import "package:login/cart_page/cart_cubit.dart";
-import "package:login/category_page/category_cubit.dart";
-import "package:login/homepage/homepage_cubit.dart";
+import "package:login/cart_page/cubit/cart_cubit.dart";
+import "package:login/category_page/cubit/category_cubit.dart";
+import "package:login/homepage/cubit/homepage_cubit.dart";
 import "../homepage/homepage.dart";
 import "../category_page/category.dart";
 import "../account_page/account.dart";
@@ -34,8 +34,11 @@ class TabBarDemo extends StatelessWidget {
         BlocProvider<CategoryCubit>(
           create: (_) => CategoryCubit()..loadDetailCategory(),
         ),
-        BlocProvider<UserCubit>(
-          create: (_) => UserCubit()..loadUser()),
+       BlocProvider<AccountCubit>(
+          create: (_) => AccountCubit()
+            ..getUser()
+            ..loadUser(),
+        ),
         BlocProvider<CartCubit>(
           create: (_) => CartCubit()),
     ], 
@@ -50,7 +53,7 @@ class TabBarDemo extends StatelessWidget {
               const Category(),
               const Cart(),
               const Center(child: Text('Favorite')),
-              const ProfileScreen(),
+              ProfileScreen(),
             ],
           ),
           bottomNavigationBar: Material(

@@ -1,4 +1,4 @@
-import 'product.dart';
+import '../model/product.dart';
 
 class HomeState {
   final List<Product> exclusiveProducts;

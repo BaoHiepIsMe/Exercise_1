@@ -1,6 +1,6 @@
-import 'package:login/cart_page/model_cart.dart';
+import 'package:login/cart_page/model/model_cart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:login/cart_page/cart_state.dart';
+import 'package:login/cart_page/cubit/cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartState(

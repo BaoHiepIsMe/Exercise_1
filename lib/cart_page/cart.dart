@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:login/cart_page/cart_cubit.dart';
-import 'package:login/cart_page/cart_state.dart';
+import 'package:login/cart_page/cubit/cart_cubit.dart';
+import 'package:login/cart_page/cubit/cart_state.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});

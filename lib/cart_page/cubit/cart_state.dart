@@ -1,4 +1,4 @@
-import 'model_cart.dart';
+import '../model/model_cart.dart';
 class CartState {
   final bool isExpanded;
   final bool isChoseProduct;

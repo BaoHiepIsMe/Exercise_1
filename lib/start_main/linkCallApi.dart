@@ -1,7 +1,6 @@
-final BASE_URL = "https://us-central1-skin-scanner-3c419.cloudfunctions.net";
+final MAIN_LINK = "https://us-central1-skin-scanner-3c419.cloudfunctions.net";
 
-//
-final LOGIN_POST = BASE_URL + "/api/auth-service/login";
-final SIGNUP_POST = BASE_URL + "/api/auth-service/register";
-final ACCOUNT_GET = BASE_URL + "/api/user-service/me";
-final ACCOUNT_DELETE = BASE_URL + "/api/scan-service/moles";
+final LOGIN = MAIN_LINK + "/api/auth-service/login";
+final SIGNUP = MAIN_LINK + "/api/auth-service/register";
+final GET_ACCOUNT = MAIN_LINK + "/api/user-service/me";
+final DELETE_ACCOUNT = MAIN_LINK + "/api/scan-service/moles";

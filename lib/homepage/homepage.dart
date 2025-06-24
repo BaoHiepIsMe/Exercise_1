@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login/detail.dart';
-import 'package:login/homepage/homepage_cubit.dart';
-import 'package:login/homepage/homepage_state.dart';
+import 'package:login/homepage/cubit/homepage_cubit.dart';
+import 'package:login/homepage/cubit/homepage_state.dart';
 import 'package:login/loading/loadingscreen.dart';
 
 void main(){

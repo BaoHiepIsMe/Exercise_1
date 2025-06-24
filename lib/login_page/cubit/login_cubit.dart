@@ -5,7 +5,7 @@ import 'package:login/login_page/data/loginresponse.dart';
 import 'package:login/start_main/linkCallApi.dart';
 import 'package:login/storage/storage.dart';
 
-part 'login_state.dart';
+part '../login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(const LoginState());
@@ -49,7 +49,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(isLoading: true));
      try {
         final response = await dio.post(
-      LOGIN_POST,
+      LOGIN,
       data: LoginRequest(email: email, password: password).toJson(),
       );
         if (response.statusCode == 200) {
@@ -59,7 +59,6 @@ class LoginCubit extends Cubit<LoginState> {
           await storage.saveTokens(loginResponse.accessToken, loginResponse.refreshToken);
           emit(state.copyWith(isLoading: false, isLoginSuccess: true));
         } else {
-          print("==> Đăng nhập thất bại: statusCode != 200");
           emit(state.copyWith(isLoading: false, isLoginSuccess: false));
         }
       } catch (e) {

@@ -70,7 +70,7 @@ class SignupCubit extends Cubit<SignUpState> {
     emit(state.copyWith(isLoading: true));
     try {
       final response = await dio.post(
-        SIGNUP_POST,
+        SIGNUP,
         data:
             SignupRequest(
               username: username,
