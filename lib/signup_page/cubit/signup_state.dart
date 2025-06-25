@@ -1,29 +1,33 @@
-part of 'login_cubit_cubit.dart';
+part of 'signup_cubit.dart';
 
-class LoginState {
+class SignUpState {
+  final String usernameError;
   final String emailError;
   final String passwordError;
   final bool isLoading;
-  final bool isLoginSuccess;
+  final bool isSignupSuccess;
 
-  const LoginState({
+  const SignUpState({
+    this.usernameError='',
     this.emailError = '',
     this.passwordError = '',
     this.isLoading = false,
-    this.isLoginSuccess = false,
+    this.isSignupSuccess = false,
   });
 
-  LoginState copyWith({
+  SignUpState copyWith({
+    String? usernameError,
     String? emailError,
     String? passwordError,
     bool? isLoading,
-    bool? isLoginSuccess,
+    bool? isSignupSuccess,
   }) {
-    return LoginState(
+    return SignUpState(
+      usernameError: usernameError ?? this.usernameError,
       emailError: emailError ?? this.emailError,
       passwordError: passwordError ?? this.passwordError,
       isLoading: isLoading ?? this.isLoading,
-      isLoginSuccess: isLoginSuccess ?? this.isLoginSuccess,
+      isSignupSuccess: isSignupSuccess ?? this.isSignupSuccess,
     );
   }
 }
