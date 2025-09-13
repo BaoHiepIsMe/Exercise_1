@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:login/account_page/account_cubit.dart';
+import 'package:login/account_page/account_state.dart';
+import 'package:login/loading/loadingscreen.dart';
+import 'package:login/login_page/login_cubit_cubit.dart';
+import 'package:login/login_page/login_page.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -27,7 +33,11 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
+      body: BlocBuilder<UserCubit,AccountState>(
+        builder: (context,state){
+          if(state is UserLoaded){
+            final user = state.user;
+            return SafeArea(
         child: Column(
           children: [
             const SizedBox(height: 20),
@@ -38,22 +48,22 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(width: 20),
                 CircleAvatar(
                   radius: 35,
-                  backgroundImage: AssetImage('image/avatar.jpg'), // đổi ảnh nếu cần
+                  backgroundImage: AssetImage(user.avata), // đổi ảnh nếu cần
                 ),
                 const SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      "Afsar Hossen",
-                      style: TextStyle(
+                      user.name,
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 4),
-                    Text(
-                      "lmshuvo97@gmail.com",
+                    const SizedBox(height: 4),
+                     Text(
+                      user.gmail,
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey,
@@ -107,7 +117,36 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   GestureDetector(
                     onTap: () {
-                      // logout logic
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Thông báo'),
+                        content: Text('Are you sure want to Logout?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              // Xử lý OK ở đây
+                              Navigator.of(context).pop();
+                               Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => BlocProvider(
+                                  create: (_) => LoginCubit(),
+                                  child: LoginPage(),
+                                )),
+                              );
+                            },
+                            child: Text('Yes'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text('No'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+
                     },
                     child: Container(
                       width: double.infinity,
@@ -133,6 +172,9 @@ class ProfileScreen extends StatelessWidget {
             ),
           ],
         ),
+      );
+          } return LoadingScreen();
+        },
       ),
     );
   }

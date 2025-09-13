@@ -32,7 +32,7 @@ class LoginCubit extends Cubit<LoginState> {
       emit(
         state.copyWith(
           passwordError:
-              '“Vui lòng nhập mật khẩu có ít nhất 6 kí tự, chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 số',
+              'Vui lòng nhập mật khẩu có ít nhất 6 kí tự, chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 số',
         ),
       );
     } else {
@@ -44,9 +44,9 @@ class LoginCubit extends Cubit<LoginState> {
       state.emailError.isEmpty && state.passwordError.isEmpty;
 
   void login(String username, String password) async {
-    emit(state.copyWith(isLoading: true)); 
-    await Future.delayed(const Duration(seconds: 5)); 
-
+   emit(state.copyWith(isLoading: true)); 
+    await Future.delayed(const Duration(seconds: 1)); 
+ 
     // Giả sử đăng nhập thành công
       emit(state.copyWith(isLoginSuccess: true, isLoading: false));
   }
